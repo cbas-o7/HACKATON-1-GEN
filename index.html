@@ -10,11 +10,163 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./src/styles.css" />
   </head>
   <body>
+    <div class="container">
+      <div class="row d-flex justify-content-between gap-5">
+        <div class="col">
+          <h6>Tu próximo movimiento</h6>
+          <h2>Lo que se mueve hoy.</h2>
+        </div>
+        <div class="col d-flex align-items-center gap-1">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm rounded-pill active"
+            data-bs-toggle="button"
+          >
+            Small button
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm rounded-pill"
+            data-bs-toggle="button"
+          >
+            Small button
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm rounded-pill"
+            data-bs-toggle="button"
+          >
+            Small button
+          </button>
+        </div>
+      </div>
+
+      <!-- PRODUCTOS -->
+      <div class="row">
+        <div class="col">
+
+          <!-- CARD DE PRODUCTO -->
+          <div class="col">
+            <div>
+              <div class="card">
+                <img
+                  src="imgs/tenis.jpg"
+                  class="card-img img-producto"
+                  alt="..."
+                />
+                <div class="card-img-overlay d-flex flex-column justify-content-between">
+                  <div class="row">
+                    <div class="col">
+                      <div
+                        class="rounded-pill bg-white text-bg-info d-flex justify-content-center p-1"
+                      >
+                        Mas Vendido
+                      </div>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                      <button class="btn rounded-pill bg-white p-1">
+                        <img
+                          src="imgs/favorite_border_42dp_434343.png"
+                          alt="..."
+                          style="width: 20px"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div class="">
+                    <button class="rounded-pill">Agregar al carrito +</button>
+                  </div>
+                </div>
+              </div>
+              <p class="text-body-secondary fst-italic mb-0" id="tag">
+                RUNNING
+              </p>
+              <h5>AeroRun Pro</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card">
+              <img
+                src="imgs/chaqueta.jpg"
+                class="card-img img-producto"
+                alt="..."
+              />
+              <div class="card-img-overlay d-flex flex-column justify-content-between">
+                <div class="row">
+                  <div class="col">
+                    <div
+                      class="rounded-pill bg-white text-bg-info d-flex justify-content-center p-1"
+                    >
+                      Esencial
+                    </div>
+                  </div>
+                  <div class="col d-flex align-items-center">
+                    <button class="btn rounded-pill bg-white p-1">
+                      <img
+                        src="imgs/favorite_border_42dp_434343.png"
+                        alt="..."
+                        style="width: 20px"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div class="">
+                  <button class="rounded-pill">Agregar al carrito +</button>
+                </div>
+              </div>
+            </div>
+            <p class="text-body-secondary fst-italic mb-0" id="tag">LifeStyle</p>
+            <h5>Kipsta Chamarra</h5>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card">
+              <img
+                src="imgs/chaqueta_mujer.webp"
+                class="card-img img-producto"
+                alt="..."
+              />
+              <div class="card-img-overlay d-flex flex-column justify-content-between">
+                <div class="row">
+                  <div class="col">
+                    <div
+                      class="rounded-pill bg-white text-bg-info d-flex justify-content-center p-1"
+                    >
+                      Nuevo
+                    </div>
+                  </div>
+                  <div class="col d-flex align-items-center">
+                    <button class="btn rounded-pill bg-white p-1">
+                      <img
+                        src="imgs/favorite_border_42dp_434343.png"
+                        alt="..."
+                        style="width: 20px"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div class="">
+                  <button class="rounded-pill">Agregar al carrito +</button>
+                </div>
+              </div>
+            </div>
+            <p class="text-body-secondary fst-italic mb-0" id="tag">LifeStyle</p>
+            <h5>Soft Zip Jacket</h5>
+          </div>
+        </div>
 
 
 
+      </div>
+    </div>
 
     <!-- SCRIPTS -->
     <script
