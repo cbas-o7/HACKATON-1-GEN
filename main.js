@@ -1,28 +1,39 @@
 const EsferaApp = (() => {
-    const init = () => {
-        try {
-            const cartBtn = document.getElementById('cartBtn');
-            if (!cartBtn) return;
-            
-            cartBtn.addEventListener('click', () => {
-                alert('Esfera Deportiva: Tu equipo está por armarse. ¡Explora productos!');
-            });
+  const init = () => {
+    const cartBtn = document.getElementById("cartBtn");
+    const cartMenu = document.getElementById("cartMenu");
+    const closeCart = document.getElementById("closeCart");
 
-            // Navbar cambia al hacer scroll - mejora UX
-            const navbar = document.querySelector('.navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.style.background = 'rgba(10,10,10,0.95)';
-                } else {
-                    navbar.style.background = 'rgba(10,10,10,0.8)';
-                }
-            });
+    if (!cartBtn || !cartMenu || !closeCart) return;
 
-        } catch (error) {
-            console.error('Error en Esfera App:', error.message);
-        }
+    const cerrarCarrito = () => {
+      cartMenu.classList.add("d-none");
+      cartBtn.setAttribute("aria-expanded", "false");
     };
-    return { init };
+
+    cartBtn.addEventListener("click", () => {
+      const estaCerrado = cartMenu.classList.contains("d-none");
+
+      cartMenu.classList.toggle("d-none");
+      cartBtn.setAttribute("aria-expanded", String(estaCerrado));
+    });
+
+    closeCart.addEventListener("click", cerrarCarrito);
+
+    // Navbar: efecto al desplazarse
+    const navbar = document.querySelector(".navbar");
+
+    window.addEventListener("scroll", () => {
+      if (!navbar) return;
+
+      navbar.style.background =
+        window.scrollY > 50
+          ? "rgba(10,10,10,0.95)"
+          : "rgba(10,10,10,0.8)";
+    });
+  };
+
+  return { init };
 })();
 
-document.addEventListener('DOMContentLoaded', EsferaApp.init);
+document.addEventListener("DOMContentLoaded", EsferaApp.init);
