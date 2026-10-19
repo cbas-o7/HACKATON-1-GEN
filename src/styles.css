@@ -495,3 +495,63 @@ body.dark {
   text-align: center;
   border-top: 2px solid var(--tinta);
 }
+
+
+/* Efecto de vidrio claro para el modo de día */
+.glass-efecto { 
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #212529 !important;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+
+/* Efecto de vidrio oscuro automático para la noche */
+[data-bs-theme="dark"] .glass-efecto {
+  background: rgba(33, 37, 41, 0.85) !important;
+  color: #f8f9fa !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Botón Seleccionado (Fondo contrastante) */
+.btn-filtro-activo {
+  background-color: var(--text) !important;
+  color: var(--surface) !important;
+  border: 1px solid var(--text) !important;
+}
+
+/* Botones Inactivos (Transparentes con borde) */
+.btn-filtro-inactivo {
+  background-color: transparent !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* Etiquetas de las tarjetas (Tag "Mas Vendido", etc.) */
+.tag-adaptable {
+  background-color: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* Obliga a los botones inactivos a usar el color de texto dinámico de Carla (blanco de noche, negro de día) */
+.btn-filtro.btn-outline-dark {
+  color: var(--text) !important;
+  border-color: var(--text) !important;
+  background-color: transparent !important;
+}
+
+/* Efecto al pasar el mouse por los inactivos */
+.btn-filtro.btn-outline-dark:hover {
+  background-color: var(--text) !important;
+  color: var(--surface) !important;
+  opacity: 0.8;
+}
+
+/* Obliga al botón activo (Todos) a invertir los colores para resaltar */
+.btn-filtro.btn-dark {
+  background-color: var(--text) !important;
+  color: var(--surface) !important;
+  border-color: var(--text) !important;
+}

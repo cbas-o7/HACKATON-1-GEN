@@ -78,14 +78,14 @@ function renderizarProductos(filtroSeleccionado = "Todos") {
     const tarjetaHTML = `
       <div class="col-12 col-md-6 col-lg-4 mb-4">
         <div class="tarjeta-hover">
-          <div class="card border-0 position-relative">
+          <div class="card border-0 position-relative bg-transparent">
             <img src="${prod.img}" class="card-img img-producto" alt="${prod.nombre}" />
             
             <div class="card-img-overlay d-flex flex-column justify-content-between p-3">
               <!-- Parte superior: Tag y Favorito -->
               <div class="d-flex justify-content-between align-items-start">
-                <span class="badge bg-white text-dark rounded-pill px-3 py-2 shadow-sm fw-bold">
-                  ${prod.tag}
+                <span class="badge tag-adaptable rounded-pill px-3 py-2 shadow-sm fw-bold">
+                    ${prod.tag}
                 </span>
                 <button class="btn btn-light  rounded-circle shadow-sm btn-favorito" onclick="toggleFavorito(${prod.id})">
                   <img src="${claseCorazon}" alt="Fav" style="width: 20px" />
@@ -93,7 +93,7 @@ function renderizarProductos(filtroSeleccionado = "Todos") {
               </div>
 
               <!-- Parte inferior: Botón Carrito -->
-              <button class="btn btn-light rounded-pill shadow-sm fw-bold w-100 py-2" onclick="agregarAlCarrito(${prod.id},'${prod.img}' ,'${prod.nombre}', ${prod.precio})">
+              <button class="btn btn-outline-secondary glass-efecto rounded-pill shadow-sm fw-bold w-100 py-2" onclick="agregarAlCarrito(${prod.id},'${prod.img}' ,'${prod.nombre}', ${prod.precio})">
                 Agregar al carrito +
               </button>
             </div>
@@ -103,7 +103,7 @@ function renderizarProductos(filtroSeleccionado = "Todos") {
           <div class="mt-3 px-1">
             <p class="text-secondary fst-italic mb-1" style="font-size: 0.85rem;">${prod.categoria.toUpperCase()}</p>
             <h5 class="fw-bold mb-1">${prod.nombre}</h5>
-            <p class="fw-bold text-dark mb-0">$${prod.precio} MXN</p>
+            <p class="fw-bold mb-0">$${prod.precio} MXN</p>
           </div>
         </div>
       </div>
@@ -178,103 +178,98 @@ window.agregarAlCarrito = agregarAlCarrito;
 window.toggleFavorito = toggleFavorito;
 renderizarProductos();
 
-
-
 (() => {
-      const body = document.body;
-      const btnDark = document.getElementById('btnDark');
-      const navToggle = document.getElementById('navToggle');
-      const navMenu = document.getElementById('navMenu');
-      const cartBtn = document.getElementById('cartBtn');
-      const searchBtn = document.getElementById('searchBtn');
-      const notificationBtn = document.getElementById('notificationBtn');
+  const body = document.body;
+  const btnDark = document.getElementById("btnDark");
+  const navToggle = document.getElementById("navToggle");
+  const navMenu = document.getElementById("navMenu");
+  const cartBtn = document.getElementById("cartBtn");
+  const searchBtn = document.getElementById("searchBtn");
+  const notificationBtn = document.getElementById("notificationBtn");
 
-      // MODO OSCURO CON LOCALSTORAGE
-      try {
-        const savedTheme = localStorage.getItem('esfera-dark');
+  // MODO OSCURO CON LOCALSTORAGE
+  try {
+    const savedTheme = localStorage.getItem("esfera-dark");
 
-        if (savedTheme === '1') {
-          body.classList.add('dark');
-        }
-      } catch (error) {
-        console.warn('No se pudo recuperar la preferencia de tema.', error);
-      }
+    if (savedTheme === "1") {
+      body.classList.add("dark");
+    }
+  } catch (error) {
+    console.warn("No se pudo recuperar la preferencia de tema.", error);
+  }
 
-      function updateThemeButton() {
-        const isDark = body.classList.contains('dark');
-        btnDark.textContent = isDark ? '☀️' : '🌙';
-        btnDark.setAttribute(
-          'aria-label',
-          isDark ? 'Activar modo claro' : 'Activar modo oscuro'
-        );
-      }
+  function updateThemeButton() {
+    const isDark = body.classList.contains("dark");
+    btnDark.textContent = isDark ? "☀️" : "🌙";
+    btnDark.setAttribute(
+      "aria-label",
+      isDark ? "Activar modo claro" : "Activar modo oscuro",
+    );
+  }
 
-      updateThemeButton();
+  updateThemeButton();
 
-      btnDark.addEventListener('click', () => {
-        body.classList.toggle('dark');
+  btnDark.addEventListener("click", () => {
+    body.classList.toggle("dark");
 
-        try {
-          localStorage.setItem(
-            'esfera-dark',
-            body.classList.contains('dark') ? '1' : '0'
-          );
-        } catch (error) {
-          console.warn('No se pudo guardar la preferencia de tema.', error);
-        }
+    try {
+      localStorage.setItem(
+        "esfera-dark",
+        body.classList.contains("dark") ? "1" : "0",
+      );
+    } catch (error) {
+      console.warn("No se pudo guardar la preferencia de tema.", error);
+    }
 
-        updateThemeButton();
+    updateThemeButton();
+  });
+
+  // Menú responsive
+  navToggle.addEventListener("click", () => {
+    const isOpen = navMenu.classList.toggle("nav__menu--open");
+
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    navToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+  });
+
+  // Cerrar el menú después de seleccionar una sección
+  navMenu.querySelectorAll(".nav__link").forEach((link) => {
+    link.addEventListener("click", () => {
+      navMenu.classList.remove("nav__menu--open");
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Abrir menú");
+
+      navMenu.querySelectorAll(".nav__link").forEach((item) => {
+        item.classList.remove("active");
+        item.removeAttribute("aria-current");
       });
 
-      // Menú responsive
-      navToggle.addEventListener('click', () => {
-        const isOpen = navMenu.classList.toggle('nav__menu--open');
+      link.classList.add("active");
+      link.setAttribute("aria-current", "page");
+    });
+  });
 
-        navToggle.setAttribute('aria-expanded', String(isOpen));
-        navToggle.setAttribute(
-          'aria-label',
-          isOpen ? 'Cerrar menú' : 'Abrir menú'
-        );
-      });
+  // Acciones provisionales de los botones
+  cartBtn.addEventListener("click", () => {
+    alert("Esfera Deportiva: aquí podrás consultar tu carrito de compras.");
+  });
 
-      // Cerrar el menú después de seleccionar una sección
-      navMenu.querySelectorAll('.nav__link').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('nav__menu--open');
-          navToggle.setAttribute('aria-expanded', 'false');
-          navToggle.setAttribute('aria-label', 'Abrir menú');
+  searchBtn.addEventListener("click", () => {
+    alert("La búsqueda de productos se puede conectar aquí.");
+  });
 
-          navMenu.querySelectorAll('.nav__link').forEach(item => {
-            item.classList.remove('active');
-            item.removeAttribute('aria-current');
-          });
+  notificationBtn.addEventListener("click", () => {
+    alert("Por ahora no tienes notificaciones nuevas.");
+  });
 
-          link.classList.add('active');
-          link.setAttribute('aria-current', 'page');
-        });
-      });
+  // Carrusel Bootstrap
+  const carouselElement = document.getElementById("esferaCarousel");
 
-      // Acciones provisionales de los botones
-      cartBtn.addEventListener('click', () => {
-        alert('Esfera Deportiva: aquí podrás consultar tu carrito de compras.');
-      });
-
-      searchBtn.addEventListener('click', () => {
-        alert('La búsqueda de productos se puede conectar aquí.');
-      });
-
-      notificationBtn.addEventListener('click', () => {
-        alert('Por ahora no tienes notificaciones nuevas.');
-      });
-
-      // Carrusel Bootstrap
-      const carouselElement = document.getElementById('esferaCarousel');
-
-      if (carouselElement && window.bootstrap) {
-        bootstrap.Carousel.getOrCreateInstance(carouselElement, {
-          interval: 3000,
-          ride: 'carousel',
-          pause: 'hover'
-        });
-      }
-    })();
+  if (carouselElement && window.bootstrap) {
+    bootstrap.Carousel.getOrCreateInstance(carouselElement, {
+      interval: 3000,
+      ride: "carousel",
+      pause: "hover",
+    });
+  }
+})();
