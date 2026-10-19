@@ -1,5 +1,10 @@
+
 .img-producto {
   height: 250px; /* Puedes ajustar este valor (ej. 300px, 15rem, etc.) */
   width: 100%;
   object-fit: cover;
 }
+
+
+/* ----------footer ---------- */
+.footer { padding: 2rem 5vw; text-align: center; border-top: 2px solid var(--tinta); }
