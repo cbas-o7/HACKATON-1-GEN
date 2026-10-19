@@ -1,3 +1,116 @@
+:root {
+  --bg: #fdfcf5;
+  --text: #0f172a;
+  --accent: #c1e11a;
+  --orange: #ff6a00;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+}
+.navbar-esfera {
+  background: var(--bg);
+  padding: 18px 0;
+}
+.navbar-brand {
+  font-family: "Space Grotesk";
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -1px;
+}
+.nav-link {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.hero-badge {
+  background: #eef4b1;
+  color: #556500;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 100px;
+}
+.hero-title {
+  font-family: "Space Grotesk";
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -2.5px;
+}
+.hero-title .accent {
+  color: #8a9e00;
+}
+.btn-esfera {
+  background: var(--text);
+  color: white;
+  border-radius: 100px;
+  padding: 14px 28px;
+  font-weight: 700;
+  border: none;
+  transition: 0.3s;
+}
+.btn-esfera:hover {
+  background: #000;
+  transform: translateY(-2px);
+}
+.carousel-esfera {
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+.carousel-esfera img {
+  height: 520px;
+  object-fit: cover;
+}
+.carousel-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: white;
+  padding: 12px 20px;
+  border-radius: 16px;
+  z-index: 5;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.badge-ball {
+  position: absolute;
+  bottom: -20px;
+  right: -10px;
+  width: 95px;
+  height: 95px;
+  background: #0f172a;
+  color: var(--accent);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-align: center;
+  transform: rotate(12deg);
+  z-index: 6;
+}
+.glow-lima {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  background: var(--accent);
+  filter: blur(60px);
+  top: -30px;
+  right: -30px;
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: -1;
+}
+.benefits-bar {
+  background: white;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
 
 .img-producto {
   height: 250px; /* Puedes ajustar este valor (ej. 300px, 15rem, etc.) */
@@ -5,6 +118,9 @@
   object-fit: cover;
 }
 
-
 /* ----------footer ---------- */
-.footer { padding: 2rem 5vw; text-align: center; border-top: 2px solid var(--tinta); }
+.footer {
+  padding: 2rem 5vw;
+  text-align: center;
+  border-top: 2px solid var(--tinta);
+}
