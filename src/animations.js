@@ -154,7 +154,7 @@
 
 /* Efecto zoom al pasar el cursor */
 .card:hover .img-producto {
-  transform: scale(1.2);
+  transform: scale(1.3);
   cursor: zoom-in;
 }
 
