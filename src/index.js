@@ -71,7 +71,9 @@ function renderizarProductos(filtroSeleccionado = "Todos") {
   productosFiltrados.forEach((prod) => {
     const esFavorito = favoritos.includes(prod.id);
 
-    const claseCorazon = esFavorito ? "imgs/favorite_24dp_D16D6A.png" : "imgs/favorite_border_42dp_434343.png";
+    const claseCorazon = esFavorito
+      ? "imgs/favorite_24dp_D16D6A.png"
+      : "imgs/favorite_border_42dp_434343.png";
 
     const tarjetaHTML = `
       <div class="col-12 col-md-6 col-lg-4 mb-4">
@@ -125,9 +127,8 @@ botonesFiltro.forEach((boton) => {
 
     e.target.classList.remove("btn-outline-dark");
     e.target.classList.add("btn-dark");
-    
-      e.target.classList.remove("btn");
-      e.target.classList.add("btn-sm");
+    e.target.classList.remove("btn");
+    e.target.classList.add("btn-sm");
 
     const categoria = e.target.getAttribute("data-categoria");
     renderizarProductos(categoria);
