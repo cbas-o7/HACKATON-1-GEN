@@ -17,147 +17,197 @@
     />
   </head>
   <body>
-    <!-- NAVBAR ESFERA DEPORTIVA -->
-    <nav class="navbar navbar-expand-lg navbar-esfera sticky-top">
+
+    <!-- 
+    NAVBAR ESFERA DEPORTIVA 
+     -->
+    <header class="header">
       <div class="container">
-        <a class="navbar-brand" href="index.html"
-          ><span
-            style="
-              background: var(--accent);
-              padding: 2px 9px;
-              border-radius: 50%;
-            "
-            >●</span
+        <nav class="nav" aria-label="Navegación principal">
+          <a
+            href="#inicio"
+            class="nav__logo"
+            aria-label="Esfera Deportiva, inicio"
           >
-          ESFERA DEPORTIVA</a
-        >
-        <button
-          class="navbar-toggler border-0"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navEsfera"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navEsfera">
-          <ul class="navbar-nav mx-auto gap-2">
-            <!-- Ya son enlaces reales, por ahora te mandan a secciones, después a tus otras páginas -->
-            <li class="nav-item">
-              <a class="nav-link" href="balones.html">Balones</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="equipamiento.html">Equipamiento</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="ligas.html">Ligas y Clubes</a>
-            </li>
-          </ul>
-          <div class="d-flex gap-2">
-            <button class="btn btn-sm border rounded-pill px-3 bg-white">
-              ⌕</button
-            ><button
-              class="btn btn-sm border rounded-pill px-3 bg-white"
-              id="cartBtn"
-            >
-              👜 (0)
-            </button>
-          </div>
+            <span class="nav__logo-icon">⊕</span>
+            <span class="nav__logo-name">Esfera <span>Deportiva</span></span>
+          </a>
 
-          <!-- Botón para cambiar entre modo claro y oscuro va denro de header -->
           <button
-            class="boton boton--ghost boton--tema"
-            id="btn-tema"
-            aria-label="Cambiar a modo oscuro"
+            class="nav__toggle"
+            id="navToggle"
+            type="button"
+            aria-label="Abrir menú"
+            aria-controls="navMenu"
+            aria-expanded="false"
           >
-            🌙
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
-        </div>
-      </div>
-    </nav>
 
-    <!-- HERO -->
-    <section class="py-5">
+          <div class="nav__menu" id="navMenu">
+            <ul class="nav__list">
+              <li>
+                <a href="#inicio" class="nav__link active" aria-current="page"
+                  >Inicio</a
+                >
+              </li>
+              <li><a href="#productos" class="nav__link">Productos</a></li>
+              <li><a href="#acerca" class="nav__link">Nosotros</a></li>
+              <li><a href="#contacto" class="nav__link">Contacto</a></li>
+            </ul>
+
+            <div class="nav__actions">
+              <button
+                class="btn-icon"
+                id="searchBtn"
+                type="button"
+                aria-label="Buscar"
+              >
+                🔍
+              </button>
+              <button
+                class="btn-icon"
+                id="notificationBtn"
+                type="button"
+                aria-label="Notificaciones"
+              >
+                🔔
+              </button>
+              <button
+                class="btn-icon"
+                id="btnDark"
+                type="button"
+                aria-label="Activar modo oscuro"
+              >
+                🌙
+              </button>
+              <button
+                class="btn-icon btn-icon--cart"
+                id="cartBtn"
+                type="button"
+              >
+                🛒 <span>Carrito</span>
+              </button>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 
+    HERO 
+    -->
+    <section class="hero" id="inicio">
       <div class="container">
         <div class="row align-items-center g-5">
           <div class="col-lg-6">
-            <span class="hero-badge mb-4 d-inline-block"
+            <span class="hero-badge"
               >⚡ DISTRIBUCIÓN INTELIGENTE EN MÉXICO</span
             >
-            <h1 class="hero-title mb-4">
-              El juego<br />en equipo<br /><span class="accent"
-                >empieza aquí.</span
-              >
+
+            <h1 class="hero-title">
+              El juego<br />
+              en equipo<br />
+              <span class="accent">empieza aquí.</span>
             </h1>
-            <p class="text-secondary mb-4 fs-5" style="max-width: 420px">
+
+            <p class="hero-description">
               Conectamos a ligas, clubes y atletas con el equipamiento técnico
-              de más alto nivel para
-              <strong>fútbol, básquetbol y voleibol.</strong>
+              de alto nivel para <strong>fútbol, básquetbol y voleibol.</strong>
             </p>
-            <div class="d-flex gap-3">
-              <a href="#productos" class="btn-esfera text-decoration-none"
+
+            <div class="d-flex flex-wrap gap-3">
+              <a href="#productos" class="btn-esfera"
                 >Explorar equipamiento →</a
               >
-              <a
-                href="#acerca"
-                class="btn bg-white border rounded-pill px-4 py-3 fw-bold small"
-                >Conocer más</a
-              >
+              <a href="#acerca" class="btn-secondary-esfera">Conocer más</a>
             </div>
           </div>
 
-          <!-- CARRETE DE FOTOS DE BALONES -->
-          <div class="col-lg-6">
-            <div class="position-relative">
+          <div class="col-lg-6" id="productos">
+            <div class="hero-visual">
               <div class="glow-lima"></div>
+
               <div
                 id="esferaCarousel"
                 class="carousel slide carousel-esfera"
                 data-bs-ride="carousel"
+                data-bs-interval="3000"
               >
                 <div class="carousel-inner">
-                  <div class="carousel-item active" data-bs-interval="3000">
+                  <div class="carousel-item active">
                     <img
-                      src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=800"
-                      class="d-block w-100"
-                      alt="Fútbol - Balón en cancha"
+                      src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=1000"
+                      class="d-block"
+                      alt="Balón de fútbol en la cancha"
                     />
                   </div>
-                  <div class="carousel-item" data-bs-interval="3000">
+
+                  <div class="carousel-item">
                     <img
-                      src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=800"
-                      class="d-block w-100"
-                      alt="Básquetbol - Esfera Deportiva"
+                      src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1000"
+                      class="d-block"
+                      alt="Cancha y balón de básquetbol"
                     />
                   </div>
-                  <div class="carousel-item" data-bs-interval="3000">
+
+                  <div class="carousel-item">
                     <img
-                      src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?q=80&w=800"
-                      class="d-block w-100"
-                      alt="Voleibol - Esfera Deportiva"
+                      src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?q=80&w=1000"
+                      class="d-block"
+                      alt="Balón de voleibol"
                     />
                   </div>
-                  <div class="carousel-item" data-bs-interval="3000">
+
+                  <div class="carousel-item">
                     <img
-                      src="https://images.unsplash.com/photo-1592656094267-764a45160876?q=80&w=800"
-                      class="d-block w-100"
-                      alt="Equipo entrenando"
+                      src="https://images.unsplash.com/photo-1592656094267-764a45160876?q=80&w=1000"
+                      class="d-block"
+                      alt="Equipamiento deportivo"
                     />
                   </div>
                 </div>
+
+                <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#esferaCarousel"
+                  data-bs-slide="prev"
+                  aria-label="Imagen anterior"
+                >
+                  <span class="carousel-control-prev-icon"></span>
+                </button>
+
+                <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#esferaCarousel"
+                  data-bs-slide="next"
+                  aria-label="Imagen siguiente"
+                >
+                  <span class="carousel-control-next-icon"></span>
+                </button>
               </div>
+
               <div class="carousel-overlay">
                 <small
-                  class="text-secondary"
-                  style="font-size: 0.65rem; letter-spacing: 1px"
-                  >NUEVA COLECCIÓN</small
-                ><br />
+                  style="
+                    font-size: 0.65rem;
+                    letter-spacing: 1px;
+                    color: var(--muted);
+                  "
+                >
+                  NUEVA COLECCIÓN
+                </small>
+                <br />
                 <strong style="font-size: 0.9rem">Balones Pro 2026</strong>
               </div>
+
               <div class="badge-ball">
-                JUEGA<br />MÁS<br /><span
-                  style="color: white; font-size: 0.6rem"
-                  >EN EQUIPO</span
-                >
+                JUEGA<br />MÁS<br />
+                <span style="color: white; font-size: 0.6rem">EN EQUIPO</span>
               </div>
             </div>
           </div>
@@ -166,44 +216,49 @@
     </section>
 
     <!-- BENEFICIOS -->
-    <section class="benefits-bar py-4">
+    <section class="benefits-bar" id="acerca">
       <div class="container">
-        <div class="row g-3 text-center text-md-start">
-          <div
-            class="col-md-4 d-flex gap-3 justify-content-center justify-content-md-start"
-          >
-            <span>⚽</span>
-            <div>
-              <strong class="d-block small">Equipamiento certificado</strong
-              ><small class="text-secondary" style="font-size: 0.75rem"
-                >FIFA / FIBA / FIVB approved</small
-              >
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="benefit">
+              <span class="benefit-icon">⚽</span>
+              <div>
+                <strong>Equipamiento deportivo</strong>
+                <small>Calidad para cada disciplina</small>
+              </div>
             </div>
           </div>
-          <div
-            class="col-md-4 d-flex gap-3 justify-content-center justify-content-md-start"
-          >
-            <span>🚚</span>
-            <div>
-              <strong class="d-block small">Envío a ligas</strong
-              ><small class="text-secondary" style="font-size: 0.75rem"
-                >Entrega en toda la República</small
-              >
+
+          <div class="col-md-4">
+            <div class="benefit">
+              <span class="benefit-icon">🚚</span>
+              <div>
+                <strong>Envíos a todo México</strong>
+                <small>Para clubes, ligas y atletas</small>
+              </div>
             </div>
           </div>
-          <div
-            class="col-md-4 d-flex gap-3 justify-content-center justify-content-md-start"
-          >
-            <span>🤝</span>
-            <div>
-              <strong class="d-block small">Precio para clubes</strong
-              ><small class="text-secondary" style="font-size: 0.75rem"
-                >Descuentos por volumen</small
-              >
+
+          <div class="col-md-4">
+            <div class="benefit">
+              <span class="benefit-icon">🤝</span>
+              <div>
+                <strong>Precios para equipos</strong>
+                <small>Opciones para compras por volumen</small>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="container py-5" id="contacto">
+      <h2 style="font-family: &quot;Space Grotesk&quot;, sans-serif">
+        ¿Listo para jugar?
+      </h2>
+      <p style="color: var(--muted)">
+        Equipa a tu equipo con Esfera Deportiva.
+      </p>
     </section>
 
     <section class="container py-5">
@@ -216,34 +271,33 @@
         <div class="col d-flex align-items-center gap-1">
           <button
             type="button"
-            class="btn-sm btn-dark  rounded-pill px-3 btn-filtro"
+            class="btn-sm btn-dark rounded-pill px-3 btn-filtro"
             data-categoria="Todos"
           >
             Todos
           </button>
           <button
             type="button"
-            class=" btn btn-outline-dark  rounded-pill px-3 btn-filtro"
+            class="btn btn-outline-dark rounded-pill px-3 btn-filtro"
             data-categoria="Running"
           >
             Running
           </button>
           <button
             type="button"
-            class="btn btn-outline-dark  rounded-pill px-3 btn-filtro"
+            class="btn btn-outline-dark rounded-pill px-3 btn-filtro"
             data-categoria="LifeStyle"
           >
             LifeStyle
           </button>
           <button
             type="button"
-            class="btn btn-outline-dark  rounded-pill px-3 btn-filtro"
+            class="btn btn-outline-dark rounded-pill px-3 btn-filtro"
             data-categoria="Accesorios"
           >
             Accesorios
           </button>
         </div>
-
       </div>
 
       <div class="container row" id="contenedor-productos"></div>
@@ -255,42 +309,7 @@
     </footer>
 
     <!-- SCRIPTS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-
-    <script>
-      // Código con manejo de errores - Rúbrica Funcionalidad 20/20
-      try {
-        const cartBtn = document.getElementById("cartBtn");
-        cartBtn?.addEventListener("click", () =>
-          alert("Esfera Deportiva: Carrito para equipamiento de equipo"),
-        );
-        new bootstrap.Carousel(document.querySelector("#esferaCarousel"), {
-          interval: 3000,
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    </script>
-
-    <script>
-      try {
-        const guardado = localStorage.getItem("pista_tema");
-        const prefiereOscuro = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        document.documentElement.setAttribute(
-          "data-bs-theme",
-          guardado || (prefiereOscuro ? "dark" : "light"),
-        );
-      } catch (error) {
-        document.documentElement.setAttribute("data-bs-theme", "light");
-      }
-    </script>
     <script type="module" src="./src/index.js"></script>
-    i
+    <script></script>
   </body>
 </html>

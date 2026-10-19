@@ -177,3 +177,104 @@ function toggleFavorito(idProducto) {
 window.agregarAlCarrito = agregarAlCarrito;
 window.toggleFavorito = toggleFavorito;
 renderizarProductos();
+
+
+
+(() => {
+      const body = document.body;
+      const btnDark = document.getElementById('btnDark');
+      const navToggle = document.getElementById('navToggle');
+      const navMenu = document.getElementById('navMenu');
+      const cartBtn = document.getElementById('cartBtn');
+      const searchBtn = document.getElementById('searchBtn');
+      const notificationBtn = document.getElementById('notificationBtn');
+
+      // MODO OSCURO CON LOCALSTORAGE
+      try {
+        const savedTheme = localStorage.getItem('esfera-dark');
+
+        if (savedTheme === '1') {
+          body.classList.add('dark');
+        }
+      } catch (error) {
+        console.warn('No se pudo recuperar la preferencia de tema.', error);
+      }
+
+      function updateThemeButton() {
+        const isDark = body.classList.contains('dark');
+        btnDark.textContent = isDark ? '☀️' : '🌙';
+        btnDark.setAttribute(
+          'aria-label',
+          isDark ? 'Activar modo claro' : 'Activar modo oscuro'
+        );
+      }
+
+      updateThemeButton();
+
+      btnDark.addEventListener('click', () => {
+        body.classList.toggle('dark');
+
+        try {
+          localStorage.setItem(
+            'esfera-dark',
+            body.classList.contains('dark') ? '1' : '0'
+          );
+        } catch (error) {
+          console.warn('No se pudo guardar la preferencia de tema.', error);
+        }
+
+        updateThemeButton();
+      });
+
+      // Menú responsive
+      navToggle.addEventListener('click', () => {
+        const isOpen = navMenu.classList.toggle('nav__menu--open');
+
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        navToggle.setAttribute(
+          'aria-label',
+          isOpen ? 'Cerrar menú' : 'Abrir menú'
+        );
+      });
+
+      // Cerrar el menú después de seleccionar una sección
+      navMenu.querySelectorAll('.nav__link').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('nav__menu--open');
+          navToggle.setAttribute('aria-expanded', 'false');
+          navToggle.setAttribute('aria-label', 'Abrir menú');
+
+          navMenu.querySelectorAll('.nav__link').forEach(item => {
+            item.classList.remove('active');
+            item.removeAttribute('aria-current');
+          });
+
+          link.classList.add('active');
+          link.setAttribute('aria-current', 'page');
+        });
+      });
+
+      // Acciones provisionales de los botones
+      cartBtn.addEventListener('click', () => {
+        alert('Esfera Deportiva: aquí podrás consultar tu carrito de compras.');
+      });
+
+      searchBtn.addEventListener('click', () => {
+        alert('La búsqueda de productos se puede conectar aquí.');
+      });
+
+      notificationBtn.addEventListener('click', () => {
+        alert('Por ahora no tienes notificaciones nuevas.');
+      });
+
+      // Carrusel Bootstrap
+      const carouselElement = document.getElementById('esferaCarousel');
+
+      if (carouselElement && window.bootstrap) {
+        bootstrap.Carousel.getOrCreateInstance(carouselElement, {
+          interval: 3000,
+          ride: 'carousel',
+          pause: 'hover'
+        });
+      }
+    })();
