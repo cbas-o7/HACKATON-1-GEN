@@ -17,6 +17,23 @@ const productos = [
   },
   {
     id: 3,
+    nombre: "Mancuernas Hexagonales 5kg",
+    categoria: "Accesorios",
+    img: "imgs/mancuernas.webp",
+    tag: "Básico",
+    precio: 450,
+  },
+  {
+    id: 4,
+    nombre: "Balón Básquet Elite",
+    categoria: "Accesorios",
+    img: "imgs/balon-basquet.webp",
+    tag: "Mas Vendido",
+    precio: 749,
+  },
+  {
+    id: 5,
+    
     nombre: "Soft Zip Jacket",
     categoria: "LifeStyle",
     img: "imgs/chaqueta_mujer.webp",
@@ -24,39 +41,26 @@ const productos = [
     precio: 950,
   },
   {
-    id: 4,
-    nombre: "Calcetas Grip Ultra",
-    categoria: "Accesorios",
-    img: "imgs/calcetas.webp",
-    tag: "Básico",
-    precio: 250,
-  },
-  {
-    id: 5,
-    nombre: "Gorra Runner X",
-    categoria: "Accesorios",
-    img: "imgs/gorra.jpg",
-    tag: "Mas Vendido",
-    precio: 399,
-  },
-  {
     id: 6,
-    nombre: "Shorts Flex",
-    categoria: "Running",
-    img: "imgs/shorts.jpg",
-    tag: "Nuevo",
-    precio: 599,
+    nombre: "Mini Portería Plegable",
+    categoria: "Accesorios",
+    img: "imgs/porteria.jpg",
+    tag: "Esencial",
+    precio: 1250,
   },
 ];
 
 let carrito = JSON.parse(localStorage.getItem("cart")) || [];
 let favoritos = JSON.parse(localStorage.getItem("favs")) || [];
 
-const contenedor = document.getElementById("contenedor-productos");
 const botonesFiltro = document.querySelectorAll(".btn-filtro");
+const contenedor = document.getElementById("productContainer");
+const contenedorCarrito = document.getElementById("cartItems");
+const contadorCarrito = document.getElementById("badgeCartCount");
+const totalCarrito = document.getElementById("cartTotal");
 
 // ==========================================
-// RENDERIZADO DE PRODUCTOS
+// RENDERIZADO DE PRODUCTOS & CARRITO
 // ==========================================
 function renderizarProductos(filtroSeleccionado = "Todos") {
   contenedor.innerHTML = "";
@@ -113,30 +117,75 @@ function renderizarProductos(filtroSeleccionado = "Todos") {
   });
 }
 
-// ==========================================
-// FILTRO POR CATEGORIA
-// ==========================================
-botonesFiltro.forEach((boton) => {
-  boton.addEventListener("click", (e) => {
-    botonesFiltro.forEach((b) => {
-      b.classList.remove("btn-dark");
-      b.classList.add("btn-outline-dark");
-      b.classList.remove("btn-sm");
-      b.classList.add("btn");
-    });
+function renderizarCarrito() {
+  const btnConfirmar = document.getElementById("checkoutBtn");
+  contenedorCarrito.innerHTML = "";
+  let total = 0;
 
-    e.target.classList.remove("btn-outline-dark");
-    e.target.classList.add("btn-dark");
-    e.target.classList.remove("btn");
-    e.target.classList.add("btn-sm");
+  if (btnConfirmar) {
+    btnConfirmar.disabled = carrito.length === 0;
+  }
 
-    const categoria = e.target.getAttribute("data-categoria");
-    renderizarProductos(categoria);
+  if (carrito.length === 0) {
+    contenedorCarrito.innerHTML =
+      '<p class="text-center my-4">Tu carrito está vacío.</p>';
+    contadorCarrito.innerText = "0";
+    totalCarrito.innerText = "$0.00 MXN";
+    return;
+  }
+
+  carrito.forEach((producto) => {
+    const subtotal = producto.precio * producto.cantidad;
+    total += subtotal;
+
+    const imagenProd = producto.img ? producto.img : "imgs/default.jpg";
+
+    contenedorCarrito.innerHTML += `
+      <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+        <!-- IMAGEN DEL PRODUCTO (Lado Izquierdo) -->
+        <img src="${imagenProd}" alt="${producto.nombre}" 
+             style="width: 65px; height: 65px; object-fit: cover;" 
+             class="rounded me-3 shadow-sm">
+
+        <!-- DETALLES Y BOTONES DE CANTIDAD (Centro) -->
+        <div class="flex-grow-1">
+          <h6 class="mb-0 fw-bold" style="font-size: 0.95rem;">${producto.nombre}</h6>
+          <small class="text-muted">$${producto.precio} MXN</small>
+          
+          <!-- Controles + y - -->
+          <div class="d-flex align-items-center mt-2">
+            <button class="btn btn-sm btn-outline-secondary py-0 px-2 rounded" onclick="restarCantidad(${producto.id})">
+               <b>-</b>
+            </button>
+            <span class="mx-3 fw-bold" style="font-size: 0.9rem;">${producto.cantidad}</span>
+            <button class="btn btn-sm btn-outline-secondary py-0 px-2 rounded" onclick="agregarAlCarrito(${producto.id},'${producto.img}' ,'${producto.nombre}', ${producto.precio})">
+               <b>+</b>
+            </button>
+          </div>
+        </div>
+
+        <!-- SUBTOTAL Y ELIMINAR (Lado Derecho) -->
+        <div class="text-end">
+          <div class="fw-bold mb-2" style="font-size: 0.95rem;">$${subtotal}</div>
+           <button class="btn btn-sm btn-outline-danger py-1 px-2 rounded-pill d-inline-flex align-items-center" onclick="eliminarDelCarrito(${producto.id})">
+            <svg xmlns="http://w3.org" width="18" height="18" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    `;
   });
-});
+
+  // .reduce ayuda a sacar la cantidad de articulos de la lista completa
+  const totalArticulos = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
+  contadorCarrito.innerText = totalArticulos;
+  totalCarrito.innerText = `$${total} MXN`;
+
+}
 
 // ==========================================
-// GUARDADO EN LOCAL STORAGE
+// GUARDADO EN LOCAL STORAGE (FUNCIONES CARRITO, FAVS)
 // ==========================================
 function agregarAlCarrito(id, img, nombre, precio) {
   const productoExistente = carrito.find((p) => p.id === id);
@@ -149,10 +198,27 @@ function agregarAlCarrito(id, img, nombre, precio) {
 
   localStorage.setItem("cart", JSON.stringify(carrito));
 
-  /* alert(
-    `Se agregó "${nombre}" al carrito. (Tienes ${carrito.length} productos diferentes)`,
-  );*/
-  console.log("Carrito actual:", carrito);
+  renderizarCarrito();
+}
+
+function restarCantidad(idProducto) {
+  const producto = carrito.find((p) => p.id === idProducto);
+  if (producto) {
+    if (producto.cantidad > 1) {
+      producto.cantidad--;
+      localStorage.setItem("cart", JSON.stringify(carrito));
+      renderizarCarrito();
+    } else {
+      eliminarDelCarrito(idProducto);
+    }
+  }
+}
+
+function eliminarDelCarrito(idProducto) {
+  carrito = carrito.filter((p) => p.id !== idProducto);
+
+  localStorage.setItem("cart", JSON.stringify(carrito));
+  renderizarCarrito();
 }
 
 function toggleFavorito(idProducto) {
@@ -174,8 +240,57 @@ function toggleFavorito(idProducto) {
   renderizarProductos(categoriaActual);
 }
 
-window.agregarAlCarrito = agregarAlCarrito;
+function procesarCompra() {
+  if (carrito.length === 0) return;
+
+  const modalElement = document.getElementById("modalProcesando");
+  const modalProcesando = new bootstrap.Modal(modalElement);
+  modalProcesando.show();
+
+  // (3000 milisegundos = 3 segundos)
+  setTimeout(() => {
+    modalProcesando.hide();
+
+    carrito = [];
+    localStorage.setItem("cart", JSON.stringify(carrito));
+
+    renderizarCarrito();
+
+    alert("¡Pago aprobado! Gracias por tu compra en Esfera Deportiva.");
+  }, 3000);
+}
+
+// ==========================================
+// FILTRO POR CATEGORIA
+// ==========================================
+// Supongamos que tus botones están dentro de un div con id "contenedor-filtros"
+const container = document.getElementById("contenedor-filtros");
+
+container.addEventListener("click", (e) => {
+  if (!e.target.matches(".btn")) return; 
+
+  const activo = container.querySelector(".btn-dark");
+  if (activo) {
+    activo.classList.remove("btn-dark", "btn-sm");
+    activo.classList.add("btn-outline-dark", "btn");
+  }
+
+  e.target.classList.remove("btn-outline-dark", "btn");
+  e.target.classList.add("btn-dark", "btn-sm");
+
+  const categoria = e.target.getAttribute("data-categoria");
+  renderizarProductos(categoria);
+});
+
+
+
+window.procesarCompra = procesarCompra;
 window.toggleFavorito = toggleFavorito;
+window.agregarAlCarrito = agregarAlCarrito;
+window.restarCantidad = restarCantidad;
+window.eliminarDelCarrito = eliminarDelCarrito;
+
+renderizarCarrito();
 renderizarProductos();
 
 (() => {
@@ -250,9 +365,7 @@ renderizarProductos();
   });
 
   // Acciones provisionales de los botones
-  cartBtn.addEventListener("click", () => {
-    alert("Esfera Deportiva: aquí podrás consultar tu carrito de compras.");
-  });
+  cartBtn.addEventListener("click", () => {});
 
   searchBtn.addEventListener("click", () => {
     alert("La búsqueda de productos se puede conectar aquí.");

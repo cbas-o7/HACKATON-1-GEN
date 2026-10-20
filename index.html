@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -17,7 +18,6 @@
     />
   </head>
   <body>
-
     <!-- 
     NAVBAR ESFERA DEPORTIVA 
      -->
@@ -55,41 +55,90 @@
               </li>
               <li><a href="#productos" class="nav__link">Productos</a></li>
               <li><a href="#acerca" class="nav__link">Nosotros</a></li>
-              <li><a href="#contacto" class="nav__link">Contacto</a></li>
+              <!-- <li><a href="#contacto" class="nav__link">Contacto</a></li> -->
             </ul>
 
-            <div class="nav__actions">
-              <button
-                class="btn-icon"
-                id="searchBtn"
-                type="button"
-                aria-label="Buscar"
-              >
-                🔍
-              </button>
-              <button
-                class="btn-icon"
-                id="notificationBtn"
-                type="button"
-                aria-label="Notificaciones"
-              >
-                🔔
-              </button>
-              <button
-                class="btn-icon"
-                id="btnDark"
-                type="button"
-                aria-label="Activar modo oscuro"
-              >
-                🌙
-              </button>
-              <button
-                class="btn-icon btn-icon--cart"
-                id="cartBtn"
-                type="button"
-              >
-                🛒 <span>Carrito</span>
-              </button>
+            <div class="nav__actions position-relative">
+              <div>
+                <button
+                  class="btn-icon"
+                  id="searchBtn"
+                  type="button"
+                  aria-label="Buscar"
+                >
+                  🔍
+                </button>
+
+                <button
+                  class="btn-icon"
+                  id="notificationBtn"
+                  type="button"
+                  aria-label="Notificaciones"
+                >
+                  🔔
+                </button>
+                <button
+                  class="btn-icon"
+                  id="btnDark"
+                  type="button"
+                  aria-label="Activar modo oscuro"
+                >
+                  🌙
+                </button>
+
+                <button
+                  class="btn-icon btn-icon--cart cartBtn"
+                  data-bs-toggle="collapse"
+                  id="cartBtn"
+                  type="button"
+                  href="#collapseExample"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls="collapseExample"
+                >
+                  🛒 <span>Carrito</span>
+                  <span
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                    id="badgeCartCount"
+                  >
+                  </span>
+                </button>
+
+                <!-- CARRITO DE COMPRA -->
+                <div class="collapse" id="collapseExample">
+                  <div
+                    class="card card-body position-absolute end-0 mt-2"
+                    style="min-width: 320px"
+                  >
+                    <div id="cartMenu" class=" ">
+                      <div
+                        class="d-flex justify-content-between align-items-center mb-3"
+                      >
+                        <h5 class="mb-0">Mi carrito</h5>
+                      </div>
+
+                      <div id="cartItems">
+                        <p class="mb-0">Tu carrito está vacío.</p>
+                      </div>
+
+                      <div class="d-flex justify-content-between mb-3">
+                        <strong>Total:</strong>
+                        <strong id="cartTotal">$0.00 MXN</strong>
+                      </div>
+
+                      <button
+                        type="button"
+                        id="checkoutBtn"
+                        class="btn btn-dark w-100"
+                        onclick="procesarCompra()"
+                        disabled
+                      >
+                        Confirmar compra
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </nav>
@@ -126,7 +175,7 @@
             </div>
           </div>
 
-          <div class="col-lg-6" id="productos">
+          <div class="col-lg-6">
             <div class="hero-visual">
               <div class="glow-lima"></div>
 
@@ -216,7 +265,7 @@
     </section>
 
     <!-- BENEFICIOS -->
-    <section class="benefits-bar" id="acerca">
+    <section class="benefits-bar">
       <div class="container">
         <div class="row g-4">
           <div class="col-md-4">
@@ -252,23 +301,14 @@
       </div>
     </section>
 
-    <section class="container py-5" id="contacto">
-      <h2 style="font-family: &quot;Space Grotesk&quot;, sans-serif">
-        ¿Listo para jugar?
-      </h2>
-      <p style="color: var(--muted)">
-        Equipa a tu equipo con Esfera Deportiva.
-      </p>
-    </section>
-
-    <section class="container py-5">
+    <section class="container py-5" id="productos">
       <div class="row d-flex justify-content-between gap-5">
         <div class="col">
           <h6>Tu próximo movimiento</h6>
           <h2>Lo que se mueve hoy.</h2>
         </div>
 
-        <div class="col d-flex align-items-center gap-1">
+        <div class="col d-flex align-items-center gap-1" id="contenedor-filtros">
           <button
             type="button"
             class="btn-sm btn-dark rounded-pill px-3 btn-filtro"
@@ -300,15 +340,187 @@
         </div>
       </div>
 
-      <div class="container row" id="contenedor-productos"></div>
+      <div class="container row" id="productContainer"></div>
     </section>
+
+    <div class="container py-4" id="acerca">
+      <div class="row">
+        <div class="col">
+          <div class="balon-wrap">
+            <div class="balon-mov">
+              <svg class="balon-svg" viewBox="0 0 200 200" aria-hidden="true">
+                <defs>
+                  <clipPath id="clipBalon">
+                    <circle cx="100" cy="100" r="98" />
+                  </clipPath>
+                </defs>
+                <circle cx="100" cy="100" r="98" fill="#f7f7f3" />
+                <g clip-path="url(#clipBalon)">
+                  <g stroke="#111418" stroke-width="2.4" stroke-linecap="round">
+                    <line x1="100.0" y1="70.0" x2="100.0" y2="37.0" />
+                    <line x1="125.7" y1="18.3" x2="169.7" y2="50.3" />
+                    <line x1="128.5" y1="90.7" x2="159.9" y2="80.5" />
+                    <line x1="185.6" y1="99.2" x2="168.8" y2="151.0" />
+                    <line x1="117.6" y1="124.3" x2="137.0" y2="151.0" />
+                    <line x1="127.2" y1="181.2" x2="72.8" y2="181.2" />
+                    <line x1="82.4" y1="124.3" x2="63.0" y2="151.0" />
+                    <line x1="31.2" y1="151.0" x2="14.4" y2="99.2" />
+                    <line x1="71.5" y1="90.7" x2="40.1" y2="80.5" />
+                    <line x1="30.3" y1="50.3" x2="74.3" y2="18.3" />
+                  </g>
+                  <g
+                    fill="#111418"
+                    stroke="#111418"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  >
+                    <polygon
+                      points="100.0,70.0 128.5,90.7 117.6,124.3 82.4,124.3 71.5,90.7"
+                    />
+                    <polygon
+                      points="100.0,37.0 74.3,18.3 84.1,-11.8 115.9,-11.8 125.7,18.3"
+                    />
+                    <polygon
+                      points="159.9,80.5 169.7,50.3 201.5,50.3 211.3,80.5 185.6,99.2"
+                    />
+                    <polygon
+                      points="137.0,151.0 168.8,151.0 178.6,181.2 152.9,199.8 127.2,181.2"
+                    />
+                    <polygon
+                      points="63.0,151.0 72.8,181.2 47.1,199.8 21.4,181.2 31.2,151.0"
+                    />
+                    <polygon
+                      points="40.1,80.5 14.4,99.2 -11.3,80.5 -1.5,50.3 30.3,50.3"
+                    />
+                  </g>
+                </g>
+                <circle
+                  cx="100"
+                  cy="100"
+                  r="98"
+                  fill="none"
+                  stroke="#111418"
+                  stroke-width="3"
+                />
+              </svg>
+            </div>
+            <div class="sombra"></div>
+          </div>
+
+          <div class="tarjeta-img">
+            <div class="etiqueta-flotante">
+              <small>Nuestra pasión</small>
+              <b>Fútbol · Básquetbol · Americano · Entre otros</b>
+            </div>
+            <div class="balones">
+              <!-- Balón de básquetbol -->
+              <svg class="b1" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="46" fill="#f97316" />
+                <g stroke="#7c2d05" stroke-width="2.5" fill="none">
+                  <path d="M50 4v92M4 50h92" />
+                  <path d="M16 16c22 22 22 46 0 68M84 16c-22 22-22 46 0 68" />
+                </g>
+              </svg>
+              <!-- Balón de fútbol -->
+              <svg class="b2" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="46" fill="#fff" />
+                <polygon
+                  points="50,32 66,44 60,63 40,63 34,44"
+                  fill="#111418"
+                />
+                <g stroke="#111418" stroke-width="2.5" fill="none">
+                  <path
+                    d="M50 32V6M66 44l24-8M60 63l14 22M40 63L26 85M34 44L10 36"
+                  />
+                </g>
+              </svg>
+              <!-- Balón de fútbol americano -->
+              <svg class="b3" viewBox="0 0 120 80">
+                <g transform="rotate(-20 60 40)">
+                  <ellipse cx="60" cy="40" rx="54" ry="30" fill="#8a4b1f" />
+                  <path
+                    d="M26 22c-8 10-8 26 0 36M94 22c8 10 8 26 0 36"
+                    stroke="#fff"
+                    stroke-width="3"
+                    fill="none"
+                  />
+                  <path
+                    d="M44 40h32M50 32v16M60 32v16M70 32v16"
+                    stroke="#fff"
+                    stroke-width="2.6"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <span class="hero-badge">Nuestra historia</span>
+            <h2 class="hero-title">¿Quiénes somos?</h2>
+          </div>
+
+          <div class="contenedor">
+            <section class="quienes">
+              <div class="texto">
+                <p>
+                  En <strong>Esfera Deportiva</strong> somos el punto de
+                  encuentro definitivo para el deporte de equipo en México. Nos
+                  consolidamos como una plataforma de distribución inteligente
+                  que reúne las mejores marcas de equipamiento especializado
+                  para disciplinas con balón, como el fútbol, básquetbol y
+                  fútbol americano.
+                </p>
+                <p>
+                  No somos solo una tienda; somos una
+                  <strong>solución integral</strong>. Nos comprometemos a
+                  seleccionar, evaluar y proveer productos de alto nivel técnico
+                  para atletas de todos los rangos. A través de la innovación
+                  digital y un asesoramiento especializado, optimizamos cada
+                  paso de tu experiencia de compra para que solo te preocupes
+                  por dar el máximo en la cancha.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- PIE DE PÁGINA (Bootstrap) -->
     <footer class="py-4 px-3 text-center border-top border-2 border-dark">
       © 2026 Hackathon Generation.
     </footer>
 
+    <div
+      class="modal fade"
+      id="modalProcesando"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-efecto border-0 shadow-lg">
+          <div class="modal-body text-center py-5">
+            <div
+              class="spinner-border text-primary mb-3"
+              role="status"
+              style="width: 3rem; height: 3rem"
+            >
+              <span class="visually-hidden">Procesando...</span>
+            </div>
+            <h5 class="fw-bold">Procesando tu compra...</h5>
+            <p class="text-muted mb-0">Por favor, no cierres esta ventana.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+ 
     <script type="module" src="./src/index.js"></script>
     <script></script>
   </body>
